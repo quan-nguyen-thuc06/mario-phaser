@@ -16,8 +16,8 @@
       "frames": {
         "typeOfGeneration": "generateFrameNumbers",
         "key": "mario",
-        "start": 6,
-        "end": 9
+        "start": 8,
+        "end": 11
       },
       "repeat": -1,
       "frameRate": 18
@@ -28,7 +28,7 @@
         "typeOfGeneration": "generateFrameNumbers",
         "key": "rotatingCoin",
         "start": 0,
-        "end": 1
+        "end": 7
       },
       "repeat": -1,
       "frameRate": 18
@@ -37,7 +37,29 @@
       "key": "goombaWalk",
       "frames": {
         "typeOfGeneration": "generateFrameNumbers",
-        "key": "goomba",
+        "key": "enemies",
+        "start": 0,
+        "end": 1
+      },
+      "repeat": -1,
+      "frameRate": 9
+    },
+    {
+      "key": "fire",
+      "frames": {
+        "typeOfGeneration": "generateFrameNumbers",
+        "key": "fire",
+        "start": 0,
+        "end": 3
+      },
+      "repeat": -1,
+      "frameRate": 9
+    },
+    {
+      "key": "turtleWalk",
+      "frames": {
+        "typeOfGeneration": "generateFrameNumbers",
+        "key": "turtle",
         "start": 0,
         "end": 1
       },

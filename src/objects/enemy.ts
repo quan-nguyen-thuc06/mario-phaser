@@ -6,7 +6,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
   // variables
   protected currentScene: Phaser.Scene;
   protected isActivated: boolean;
-  protected isDying: boolean;
+   isDying: boolean;
   protected speed: number;
   protected dyingScoreValue: number;
 
@@ -25,12 +25,13 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     this.isDying = false;
 
     // sprite
-    this.setOrigin(0, 0);
+    this.setOrigin(0.5, 0.5);
     this.setFrame(0);
 
     // physics
     this.currentScene.physics.world.enable(this);
-    this.body.setSize(8, 8);
+    this.body.setSize(14,13);
+    this.body.setOffset(9,18);
   }
 
   protected showAndAddScore(): void {

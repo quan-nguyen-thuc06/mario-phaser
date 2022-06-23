@@ -1,4 +1,5 @@
 import { ISpriteConstructor } from '../interfaces/sprite.interface';
+import { Fire } from './fire';
 
 export class Mario extends Phaser.GameObjects.Sprite {
   body: Phaser.Physics.Arcade.Body;
@@ -49,15 +50,16 @@ export class Mario extends Phaser.GameObjects.Sprite {
       ['LEFT', this.addKey('LEFT')],
       ['RIGHT', this.addKey('RIGHT')],
       ['DOWN', this.addKey('DOWN')],
-      ['JUMP', this.addKey('SPACE')]
+      ['JUMP', this.addKey('SPACE')],
     ]);
 
     // physics
     this.currentScene.physics.world.enable(this);
     this.adjustPhysicBodyToSmallSize();
-    this.body.maxVelocity.x = 50;
+    this.body.maxVelocity.x = 60;
     this.body.maxVelocity.y = 300;
   }
+
 
   private addKey(key: string): Phaser.Input.Keyboard.Key {
     return this.currentScene.input.keyboard.addKey(key);
@@ -68,7 +70,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
       this.handleInput();
       this.handleAnimations();
     } else {
-      this.setFrame(12);
+      this.setFrame(6);
       if (this.y > this.currentScene.sys.canvas.height) {
         this.currentScene.scene.stop('GameScene');
         this.currentScene.scene.stop('HUDScene');
@@ -86,7 +88,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
     }
   }
 
-  private handleInput() {
+  protected handleInput() {
     if (this.y > this.currentScene.sys.canvas.height) {
       // mario fell into a hole
       this.isDying = true;
@@ -117,7 +119,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
 
     // handle jumping
     if (this.keys.get('JUMP').isDown && !this.isJumping) {
-      this.body.setVelocityY(-180);
+      this.body.setVelocityY(-251);
       this.isJumping = true;
     }
   }
@@ -127,9 +129,9 @@ export class Mario extends Phaser.GameObjects.Sprite {
       // mario is jumping or falling
       this.anims.stop();
       if (this.marioSize === 'small') {
-        this.setFrame(4);
+        this.setFrame(5);
       } else {
-        this.setFrame(10);
+        this.setFrame(13);
       }
     } else if (this.body.velocity.x !== 0) {
       // mario is moving horizontal
@@ -158,9 +160,9 @@ export class Mario extends Phaser.GameObjects.Sprite {
         this.setFrame(0);
       } else {
         if (this.keys.get('DOWN').isDown) {
-          this.setFrame(13);
+          this.setFrame(14);
         } else {
-          this.setFrame(6);
+          this.setFrame(8);
         }
       }
     }
@@ -179,13 +181,13 @@ export class Mario extends Phaser.GameObjects.Sprite {
   }
 
   private adjustPhysicBodyToSmallSize(): void {
-    this.body.setSize(6, 12);
-    this.body.setOffset(6, 4);
+    this.body.setSize(10, 16);
+    this.body.setOffset(12, 16);
   }
 
   private adjustPhysicBodyToBigSize(): void {
-    this.body.setSize(8, 16);
-    this.body.setOffset(4, 0);
+    this.body.setSize(12, 32);
+    // this.body.setOffset(4, 0);
   }
 
   public bounceUpAfterHitEnemyOnHead(): void {

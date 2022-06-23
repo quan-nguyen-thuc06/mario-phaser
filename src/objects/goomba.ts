@@ -18,8 +18,12 @@ export class Goomba extends Enemy {
         this.body.setVelocityX(this.speed);
 
         // if goomba is moving into obstacle from map layer, turn
-        if (this.body.blocked.right || this.body.blocked.left) {
-          this.speed = -this.speed;
+        if (this.body.blocked.right) {
+          this.speed = -20;
+          this.body.velocity.x = this.speed;
+        }
+        else if(this.body.blocked.left){
+          this.speed = 20;
           this.body.velocity.x = this.speed;
         }
 
@@ -49,9 +53,10 @@ export class Goomba extends Enemy {
     this.showAndAddScore();
   }
 
-  protected gotHitFromBulletOrMarioHasStar(): void {
+  public gotHitFromBulletOrMarioHasStar(): void {
     this.isDying = true;
-    this.body.setVelocityX(20);
+    this.body.setVelocityX(0);
+    this.body.checkCollision.none = true;
     this.body.setVelocityY(-20);
     this.setFlipY(true);
   }

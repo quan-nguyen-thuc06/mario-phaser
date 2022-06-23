@@ -24,8 +24,8 @@ module.exports = {
     contentBase: path.resolve(__dirname, './'),
     publicPath: '/dist/',
     host: 'localhost',
-    port: 8080,
-    open: false
+    port: 8000,
+    open: true
   },
   resolve: {
     extensions: ['.ts', '.js']

@@ -14,6 +14,21 @@
       },
       {
         "type": "tilemapTiledJSON",
+        "key": "level2",
+        "url": "./assets/maps/level2.json"
+      },
+      {
+        "type": "tilemapTiledJSON",
+        "key": "newLevel1",
+        "url": "./assets/maps/newlevel1.json"
+      },
+      {
+        "type": "tilemapTiledJSON",
+        "key": "newLevel2",
+        "url": "./assets/maps/newlevel2.json"
+      },
+      {
+        "type": "tilemapTiledJSON",
         "key": "level1Room1",
         "url": "./assets/maps/level1Room1.json"
       },
@@ -28,6 +43,11 @@
         "url": "./assets/tiles/tiles.png"
       },
       {
+        "type": "image",
+        "key": "OverWorld",
+        "url": "./assets/tiles/OverWorld.png"
+      },
+      {
         "type": "json",
         "key": "animationJSON",
         "url": "./assets/animations/animations.json"
@@ -35,10 +55,10 @@
       {
         "type": "spritesheet",
         "key": "mario",
-        "url": "./assets/sprites/mario.png",
+        "url": "./assets/sprites/mario_color.png",
         "frameConfig": {
-          "frameWidth": 16,
-          "frameHeight": 16
+          "frameWidth": 32,
+          "frameHeight": 32
         }
       },
       {
@@ -46,8 +66,8 @@
         "key": "box",
         "url": "./assets/sprites/box.png",
         "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
+          "frameWidth": 16,
+          "frameHeight": 16
         }
       },
       {
@@ -55,8 +75,8 @@
         "key": "brick",
         "url": "./assets/sprites/brick.png",
         "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
+          "frameWidth": 16,
+          "frameHeight": 16
         }
       },
       {
@@ -64,8 +84,8 @@
         "key": "rotatingCoin",
         "url": "./assets/sprites/rotatingCoin.png",
         "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
+          "frameWidth": 16,
+          "frameHeight": 16
         }
       },
       {
@@ -73,8 +93,17 @@
         "key": "coin",
         "url": "./assets/sprites/coin.png",
         "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
+          "frameWidth": 16,
+          "frameHeight": 16
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "enemies",
+        "url": "./assets/sprites/enemies.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
         }
       },
       {
@@ -84,6 +113,24 @@
         "frameConfig": {
           "frameWidth": 8,
           "frameHeight": 8
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "fire",
+        "url": "./assets/sprites/fire.png",
+        "frameConfig": {
+          "frameWidth": 18,
+          "frameHeight": 16
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "turtle",
+        "url": "./assets/sprites/turtle.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
         }
       },
       {
@@ -100,6 +147,15 @@
         "type": "spritesheet",
         "key": "coin2",
         "url": "./assets/collectibles/coin2.png",
+        "frameConfig": {
+          "frameWidth": 16,
+          "frameHeight": 16
+        }
+      },
+      {
+        "type": "spritesheet",
+        "key": "fire",
+        "url": "./assets/collectibles/fire.png",
         "frameConfig": {
           "frameWidth": 8,
           "frameHeight": 8
@@ -128,8 +184,8 @@
         "key": "mushroom",
         "url": "./assets/collectibles/mushroom.png",
         "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
+          "frameWidth": 16,
+          "frameHeight": 16
         }
       },
       {
