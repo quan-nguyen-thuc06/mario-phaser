@@ -1,5 +1,4 @@
 import { ISpriteConstructor } from '../interfaces/sprite.interface';
-import { Fire } from './fire';
 
 export class Mario extends Phaser.GameObjects.Sprite {
   body: Phaser.Physics.Arcade.Body;
@@ -11,6 +10,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
   private isJumping: boolean;
   private isDying: boolean;
   private isVulnerable: boolean;
+  private isTouchGround: boolean;
   private vulnerableCounter: number;
 
   // input
@@ -22,6 +22,14 @@ export class Mario extends Phaser.GameObjects.Sprite {
 
   public getVulnerable(): boolean {
     return this.isVulnerable;
+  }
+
+  public getMarioSize(): string {
+    return this.marioSize;
+  }
+
+  public getIsDying(){
+    return this.isDying;
   }
 
   constructor(aParams: ISpriteConstructor) {
@@ -39,6 +47,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
     this.isJumping = false;
     this.isDying = false;
     this.isVulnerable = true;
+    this.isTouchGround = true;
     this.vulnerableCounter = 100;
 
     // sprite
@@ -56,7 +65,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
     // physics
     this.currentScene.physics.world.enable(this);
     this.adjustPhysicBodyToSmallSize();
-    this.body.maxVelocity.x = 60;
+    this.body.maxVelocity.x = 70;
     this.body.maxVelocity.y = 300;
   }
 
@@ -67,14 +76,28 @@ export class Mario extends Phaser.GameObjects.Sprite {
 
   update(): void {
     if (!this.isDying) {
+      // check mario is touching the ground
+      if(!this.body.blocked.down){
+        this.isTouchGround = false;
+      }else{
+        this.isTouchGround = true;
+      }
+
       this.handleInput();
       this.handleAnimations();
     } else {
       this.setFrame(6);
-      if (this.y > this.currentScene.sys.canvas.height) {
-        this.currentScene.scene.stop('GameScene');
-        this.currentScene.scene.stop('HUDScene');
-        this.currentScene.scene.start('MenuScene');
+      
+      if (this.y > this.currentScene.sys.canvas.height / this.currentScene.cameras.main.zoom) {
+        if(parseInt(this.currentScene.registry.get('lives'))<=0){
+          this.currentScene.scene.stop('GameScene');
+          this.currentScene.scene.stop('HUDScene');
+          this.currentScene.scene.start('MenuScene');
+        }else{
+          this.currentScene.scene.stop('HUDScene');
+          this.currentScene.scene.start('HUDScene');
+          this.currentScene.scene.restart();
+        }
       }
     }
 
@@ -89,9 +112,12 @@ export class Mario extends Phaser.GameObjects.Sprite {
   }
 
   protected handleInput() {
-    if (this.y > this.currentScene.sys.canvas.height) {
+    if (this.y > this.currentScene.sys.canvas.height / this.currentScene.cameras.main.zoom) {
       // mario fell into a hole
       this.isDying = true;
+      // reduce lives
+      let newLives = parseInt(this.currentScene.registry.get('lives')) - 1;
+      this.currentScene.registry.set('lives', newLives);
     }
 
     // evaluate if player is on the floor or on object
@@ -118,7 +144,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
     }
 
     // handle jumping
-    if (this.keys.get('JUMP').isDown && !this.isJumping) {
+    if (this.keys.get('JUMP').isDown && !this.isJumping && this.isTouchGround) {
       this.body.setVelocityY(-251);
       this.isJumping = true;
     }
@@ -187,14 +213,13 @@ export class Mario extends Phaser.GameObjects.Sprite {
 
   private adjustPhysicBodyToBigSize(): void {
     this.body.setSize(12, 32);
-    // this.body.setOffset(4, 0);
   }
 
   public bounceUpAfterHitEnemyOnHead(): void {
     this.currentScene.add.tween({
       targets: this,
-      props: { y: this.y - 5 },
-      duration: 200,
+      props: { y: this.y - 12},
+      duration: 300,
       ease: 'Power1',
       yoyo: true
     });
@@ -207,7 +232,6 @@ export class Mario extends Phaser.GameObjects.Sprite {
     } else {
       // mario is dying
       this.isDying = true;
-
       // sets acceleration, velocity and speed to zero
       // stop all animations
       this.body.stop();
@@ -221,6 +245,10 @@ export class Mario extends Phaser.GameObjects.Sprite {
       this.body.checkCollision.down = false;
       this.body.checkCollision.left = false;
       this.body.checkCollision.right = false;
+
+      // reduce lives
+      let newLives = parseInt(this.currentScene.registry.get('lives')) - 1;
+      this.currentScene.registry.set('lives', newLives);
     }
   }
 }

@@ -48,29 +48,26 @@ export class Turtle extends Enemy {
   }
 
   public gotHitOnHead(): void {
-    this.setFrame(2);
+    this.setFrame(5);
     if(!this.isDying)
-      this.constSpeed = -60;
+      this.constSpeed = -80;
     else{
       this.body.setVelocity(0, 0);
       this.body.checkCollision.none = true;
+      this.showAndAddScore();
     }
     this.speed = this.constSpeed;
-    this.showAndAddScore();
     this.isDying = true;
   }
 
   public gotHitFromBulletOrMarioHasStar(): void {
-    this.setFrame(2);
+    this.setFrame(5);
     this.isDying = true;
     this.constSpeed = 0;
     this.speed =0;
     this.body.checkCollision.none = true;
     this.body.setVelocityY(-20);
     this.setFlipY(true);
-  }
-
-  public isDead(): void {
-    this.destroy();
+    this.showAndAddScore();
   }
 }

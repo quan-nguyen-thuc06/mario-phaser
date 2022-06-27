@@ -59,9 +59,20 @@
       "key": "turtleWalk",
       "frames": {
         "typeOfGeneration": "generateFrameNumbers",
-        "key": "turtle",
-        "start": 0,
-        "end": 1
+        "key": "enemies",
+        "start": 3,
+        "end": 4
+      },
+      "repeat": -1,
+      "frameRate": 9
+    },
+    {
+      "key": "bowserWalk",
+      "frames": {
+        "typeOfGeneration": "generateFrameNumbers",
+        "key": "enemies",
+        "start": 9,
+        "end": 12
       },
       "repeat": -1,
       "frameRate": 9

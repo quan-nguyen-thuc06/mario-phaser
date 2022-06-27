@@ -1,3 +1,5 @@
+import LevelKeys from '../Consts/level-key';
+import { Bowser } from '../objects/bowser';
 import { Box } from '../objects/box';
 import { Brick } from '../objects/brick';
 import { Collectible } from '../objects/collectible';
@@ -15,6 +17,7 @@ export class GameScene extends Phaser.Scene {
   private map: Phaser.Tilemaps.Tilemap;
   private tileset: Phaser.Tilemaps.Tileset;
   private backgroundLayer: Phaser.Tilemaps.TilemapLayer;
+  private checkLayer: Phaser.Tilemaps.TilemapLayer;
   private foregroundLayer: Phaser.Tilemaps.TilemapLayer;
 
   // game objects
@@ -40,14 +43,20 @@ export class GameScene extends Phaser.Scene {
     // *****************************************************************
 
     // create our tilemap from Tiled JSON
-    this.map = this.make.tilemap({ key: this.registry.get('level2') });
+    this.map = this.make.tilemap({  key: this.registry.get('level') });
     // add our tileset and layers to our tilemap
-    this.tileset = this.map.addTilesetImage('OverWorld');
+    this.tileset = this.map.addTilesetImage('tiles2');
     this.backgroundLayer = this.map.createLayer(
       'backgroundLayer',
       this.tileset,
 
     );
+    this.checkLayer = this.map.createLayer(
+      'checkLayer',
+      this.tileset,
+      
+      );
+    this.checkLayer.setName('checkLayer');
 
     this.foregroundLayer = this.map.createLayer(
       'foregroundLayer',
@@ -58,6 +67,7 @@ export class GameScene extends Phaser.Scene {
 
     // set collision for tiles with the property collide set to true
     this.foregroundLayer.setCollisionByProperty({ collide: true });
+    this.checkLayer.setCollisionByProperty({collide: true});
 
     // *****************************************************************
     // GAME OBJECTS
@@ -99,14 +109,23 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.foregroundLayer);
     this.physics.add.collider(this.player.getFires(), this.foregroundLayer);
     this.physics.add.collider(this.enemies, this.foregroundLayer);
+    this.physics.add.collider(this.enemies, this.checkLayer);
     this.physics.add.collider(this.enemies, this.boxes);
     this.physics.add.collider(this.enemies, this.bricks);
-    this.physics.add.collider(this.player, this.bricks);
+    // this.physics.add.collider(this.player, this.bricks);
 
     this.physics.add.collider(
       this.player,
       this.boxes,
       this.playerHitBox,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.player,
+      this.bricks,
+      this.playerHitBrick,
       null,
       this
     );
@@ -155,12 +174,14 @@ export class GameScene extends Phaser.Scene {
     // CAMERA
     // *****************************************************************
     this.cameras.main.startFollow(this.player);
+    
     this.cameras.main.setBounds(
       0,
       0,
       this.map.widthInPixels,
       this.map.heightInPixels
     );
+    this.cameras.main.setZoom(2)
   }
 
   update(): void {
@@ -181,9 +202,9 @@ export class GameScene extends Phaser.Scene {
             height: object.width,
             width: object.height,
             spawn: {
-              x: object.properties.marioSpawnX,
-              y: object.properties.marioSpawnY,
-              dir: object.properties.direction
+              x: object.properties[1].value,
+              y: object.properties[2].value,
+              dir: object.properties[0].value
             }
           }).setName(object.name)
         );
@@ -192,8 +213,8 @@ export class GameScene extends Phaser.Scene {
       if (object.type === 'player') {
         this.player = new Mario2({
           scene: this,
-          x: this.registry.get('spawn').x,
-          y: this.registry.get('spawn').y,
+          x: object.x,
+          y: object.y,
           texture: 'mario'
         });
       }
@@ -204,7 +225,7 @@ export class GameScene extends Phaser.Scene {
             scene: this,
             x: object.x,
             y: object.y,
-            texture: 'goomba'
+            texture: 'enemies'
           })
         );
       }
@@ -215,8 +236,19 @@ export class GameScene extends Phaser.Scene {
             scene: this,
             x: object.x,
             y: object.y,
-            texture: 'turtle'
+            texture: 'enemies'
           })
+        );
+      }
+
+      if (object.type === 'bowser') {
+        this.enemies.add(
+          new Bowser({
+            scene: this,
+            x: object.x,
+            y: object.y,
+            texture: 'enemies'
+          }, this.player)
         );
       }
 
@@ -265,7 +297,7 @@ export class GameScene extends Phaser.Scene {
             texture: 'platform',
             tweenProps: {
               y: {
-                value: 50,
+                value: object.y - 100,
                 duration: 1500,
                 ease: 'Power0'
               }
@@ -274,7 +306,10 @@ export class GameScene extends Phaser.Scene {
         );
       }
 
-      if (object.type === 'platformMovingLeftAndRight') {
+      if (object.name === 'platformMovingLeftAndRight') {
+        let rangeTranform = 100;
+        if(object.type === 'platformMovingRight')
+          rangeTranform = -100;
         this.platforms.add(
           new Platform({
             scene: this,
@@ -283,7 +318,7 @@ export class GameScene extends Phaser.Scene {
             texture: 'platform',
             tweenProps: {
               x: {
-                value: object.x + 100,
+                value: object.x + rangeTranform,
                 duration: 3000,
                 ease: 'Power0',
               },
@@ -402,13 +437,27 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  private playerHitBrick(_player: Mario, _brick: Brick): void {
+    if (_brick.body.touching.down) {
+      console.log('Player hit bricks', _player.getMarioSize());
+      if(_player.getMarioSize()=="big"){
+        _brick.superMarioHitBrick();
+      }
+      else{
+        _brick.yoyoTheBrickUpAndDown()
+      }
+    }
+  }
+
   private handlePlayerPortalOverlap(_player: Mario, _portal: Portal): void {
+    console.log('Player portal overlaps', _portal.getPortalDestination().dir);
     if (
       (_player.getKeys().get('DOWN').isDown &&
         _portal.getPortalDestination().dir === 'down') ||
       (_player.getKeys().get('RIGHT').isDown &&
         _portal.getPortalDestination().dir === 'right')
     ) {
+      console.log('Player portal overlaps', _portal.name);
       // set new level and new destination for mario
       this.registry.set('level', _portal.name);
       this.registry.set('spawn', {

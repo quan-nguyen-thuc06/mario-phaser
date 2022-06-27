@@ -44,7 +44,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         this.y - 20,
         'font',
         this.dyingScoreValue.toString(),
-        4
+        6
       )
       .setOrigin(0, 0);
 
@@ -58,5 +58,8 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         scoreText.destroy();
       }
     });
+  }
+  public isDead(): void {
+    this.destroy();
   }
 }

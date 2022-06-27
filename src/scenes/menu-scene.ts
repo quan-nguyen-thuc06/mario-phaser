@@ -19,15 +19,15 @@ export class MenuScene extends Phaser.Scene {
   create(): void {
     this.add.image(0, 0, 'title')
       .setOrigin(0, 0)
-      .setDisplaySize(320,160);
+      .setDisplaySize(this.scale.width,this.scale.height);
 
     this.bitmapTexts.push(
       this.add.bitmapText(
-        this.sys.canvas.width / 2 - 22,
-        105,
+        this.sys.canvas.width / 2 - 88,
+        this.scale.height - 105,
         'font',
         'START',
-        8
+        32
       )
     );
   }
@@ -42,8 +42,7 @@ export class MenuScene extends Phaser.Scene {
 
   private initGlobalDataManager(): void {
     this.registry.set('time', 400);
-    this.registry.set('level1', 'level1');
-    this.registry.set('level2', 'newLevel2');
+    this.registry.set('level', 'newLevel2');
     this.registry.set('world', '1-1');
     this.registry.set('worldTime', 'WORLD TIME');
     this.registry.set('score', 0);

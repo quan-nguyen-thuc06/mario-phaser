@@ -26,6 +26,9 @@ export class Collectible extends Phaser.GameObjects.Sprite {
     this.currentScene.physics.world.enable(this);
     this.body.setSize(16, 16);
     this.body.setAllowGravity(false);
+
+    // play animation (animation with the same name as texture)
+    this.anims.play(this.texture)
   }
 
   update(): void {}

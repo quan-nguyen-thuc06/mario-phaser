@@ -26,7 +26,7 @@ export class Platform extends Phaser.GameObjects.Image {
 
     // physics
     this.currentScene.physics.world.enable(this);
-    this.body.setSize(24, 5);
+    this.body.setSize(48, 16);
     this.body.setAllowGravity(false);
     this.body.setImmovable(true);
   }
