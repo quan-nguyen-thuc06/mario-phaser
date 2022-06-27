@@ -489,6 +489,17 @@
                  "height":37.3333,
                  "id":35,
                  "name":"bowser",
+                 "properties":[
+                        {
+                         "name":"isFollowPlayer",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isThrowHammer",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "type":"bowser",
                  "visible":true,

@@ -14,11 +14,6 @@
       },
       {
         "type": "tilemapTiledJSON",
-        "key": "level2",
-        "url": "./assets/maps/level2.json"
-      },
-      {
-        "type": "tilemapTiledJSON",
         "key": "newLevel1",
         "url": "./assets/maps/newlevel1.json"
       },
@@ -136,6 +131,15 @@
       },
       {
         "type": "spritesheet",
+        "key": "hammer",
+        "url": "./assets/sprites/hammer.png",
+        "frameConfig": {
+          "frameWidth": 32,
+          "frameHeight": 32
+        }
+      },
+      {
+        "type": "spritesheet",
         "key": "turtle",
         "url": "./assets/sprites/turtle.png",
         "frameConfig": {
@@ -160,15 +164,6 @@
         "frameConfig": {
           "frameWidth": 16,
           "frameHeight": 16
-        }
-      },
-      {
-        "type": "spritesheet",
-        "key": "fire",
-        "url": "./assets/collectibles/fire.png",
-        "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
         }
       },
       {

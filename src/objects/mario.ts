@@ -28,6 +28,10 @@ export class Mario extends Phaser.GameObjects.Sprite {
     return this.marioSize;
   }
 
+  public setMarioSize(marioSize: string) {
+    this.marioSize = marioSize;
+  }
+
   public getIsDying(){
     return this.isDying;
   }
@@ -94,6 +98,8 @@ export class Mario extends Phaser.GameObjects.Sprite {
           this.currentScene.scene.stop('HUDScene');
           this.currentScene.scene.start('MenuScene');
         }else{
+          // set mario is small
+          this.shrinkMario();
           this.currentScene.scene.stop('HUDScene');
           this.currentScene.scene.start('HUDScene');
           this.currentScene.scene.restart();

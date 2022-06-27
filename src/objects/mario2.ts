@@ -1,5 +1,5 @@
 import { ISpriteConstructor } from "../interfaces/sprite.interface";
-import { Fire } from "./fire";
+import { Fire } from "./bullet/fire";
 import { Mario } from "./mario";
 
 export class Mario2 extends Mario{
@@ -20,11 +20,11 @@ export class Mario2 extends Mario{
       this.fires = this.scene.add.group({
         /*classType: Bullet,*/
         active: true,
-        maxSize: 3,
+        maxSize: 2,
         runChildUpdate: true
       });
       this.speedFire = 200;
-    }
+  }
   private handleInputV2(){
       this.scene.input.keyboard.on('keydown-X', ()=>this.handleShooting())
   }
@@ -35,7 +35,7 @@ export class Mario2 extends Mario{
     else{
       this.speedFire = 200;
     }
-      if(this.fires.getChildren().length <2){
+      if(this.fires.getChildren().length <this.fires.maxSize){
         this.fires.add(
           new Fire({
               scene: this.scene,

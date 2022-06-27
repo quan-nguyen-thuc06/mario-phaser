@@ -1,16 +1,17 @@
 import LevelKeys from '../Consts/level-key';
-import { Bowser } from '../objects/bowser';
+import { Bowser } from '../objects/enemy/bowser';
 import { Box } from '../objects/box';
 import { Brick } from '../objects/brick';
 import { Collectible } from '../objects/collectible';
-import { Enemy } from '../objects/enemy';
-import { Fire } from '../objects/fire';
-import { Goomba } from '../objects/goomba';
+import { Enemy } from '../objects/enemy/enemy';
+import { Fire } from '../objects/bullet/fire';
 import { Mario } from '../objects/mario';
 import { Mario2 } from '../objects/mario2';
 import { Platform } from '../objects/platform';
 import { Portal } from '../objects/portal';
-import { Turtle } from '../objects/turtle';
+import { Turtle } from '../objects/enemy/turtle';
+import { Goomba } from '../objects/enemy/goomba';
+import { Hammer } from '../objects/bullet/hammer';
 
 export class GameScene extends Phaser.Scene {
   // tilemap
@@ -242,13 +243,25 @@ export class GameScene extends Phaser.Scene {
       }
 
       if (object.type === 'bowser') {
+        var bowser = new Bowser({
+          scene: this,
+          x: object.x,
+          y: object.y,
+          texture: 'enemies'
+        }, this.player);
+        bowser.setProperties(object.properties[1].value, object.properties[0].value)
         this.enemies.add(
-          new Bowser({
-            scene: this,
-            x: object.x,
-            y: object.y,
-            texture: 'enemies'
-          }, this.player)
+          bowser
+        );
+
+        // set collider
+        this.physics.add.collider(bowser.getHammer(), this.foregroundLayer);
+        this.physics.add.overlap(
+          this.player,
+          bowser.getHammer(),
+          this.handlePlayerHammerOverlap,
+          null,
+          this
         );
       }
 
@@ -357,9 +370,16 @@ export class GameScene extends Phaser.Scene {
     }
     } else {
       // player got hit from the side or on the head
-      if (_player.getVulnerable()) {
+      if (!_player.body.touching.down && !_enemy.body.touching.up &&_player.getVulnerable()) {
         _player.gotHit();
       }
+    }
+  }
+
+  private handlePlayerHammerOverlap(_player: Mario, _hammer: Hammer){
+    if (_player.getVulnerable()) {
+      _player.setMarioSize("small");
+      _player.gotHit();
     }
   }
 
@@ -369,7 +389,7 @@ export class GameScene extends Phaser.Scene {
    * @param _enemy  [Enemy]
    */
    private handleFireEnemyOverlap(_fire: Fire, _enemy: Enemy): void {
-    _fire.destroyFire();
+    _fire.destroyBullet();
     if(_enemy instanceof Goomba || _enemy instanceof Turtle) {
       this.add.tween({
         targets: _enemy,

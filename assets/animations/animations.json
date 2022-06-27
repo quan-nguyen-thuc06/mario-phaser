@@ -34,6 +34,17 @@
       "frameRate": 18
     },
     {
+      "key": "mushroom",
+      "frames": {
+        "typeOfGeneration": "generateFrameNumbers",
+        "key": "mushroom",
+        "start": 0,
+        "end": 0
+      },
+      "repeat": -1,
+      "frameRate": 18
+    },
+    {
       "key": "goombaWalk",
       "frames": {
         "typeOfGeneration": "generateFrameNumbers",
@@ -50,7 +61,7 @@
         "typeOfGeneration": "generateFrameNumbers",
         "key": "fire",
         "start": 0,
-        "end": 3
+        "end": 0
       },
       "repeat": -1,
       "frameRate": 9

@@ -659,7 +659,73 @@
                  "visible":true,
                  "width":8,
                  "x":38.6666666666668,
-                 "y":270.333333333333
+                 "y":272.333333333333
+                }, 
+                {
+                 "height":37.3333,
+                 "id":63,
+                 "name":"bowser",
+                 "properties":[
+                        {
+                         "name":"isFollowPlayer",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isThrowHammer",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"bowser",
+                 "visible":true,
+                 "width":25.3333,
+                 "x":1280.00001666667,
+                 "y":132.000016666667
+                }, 
+                {
+                 "height":37.3333,
+                 "id":64,
+                 "name":"bowser",
+                 "properties":[
+                        {
+                         "name":"isFollowPlayer",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isThrowHammer",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"bowser",
+                 "visible":true,
+                 "width":25.3333,
+                 "x":3450.66668333333,
+                 "y":227.33335
+                }, 
+                {
+                 "height":37.3333,
+                 "id":65,
+                 "name":"bowser",
+                 "properties":[
+                        {
+                         "name":"isFollowPlayer",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isThrowHammer",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"bowser",
+                 "visible":true,
+                 "width":25.3333,
+                 "x":462.666683333333,
+                 "y":185.33335
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -668,7 +734,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":63,
+ "nextobjectid":66,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.6",
