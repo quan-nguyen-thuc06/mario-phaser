@@ -560,7 +560,11 @@ export class GameScene extends Phaser.Scene {
       platform.body.touching.up &&
       player.body.touching.down
     ) {
-
+      if(player.body.velocity.x == 0 && !player.getKeys().get('JUMP').isDown)
+        player.body.setGravityY(10000);
+      else{
+        player.body.setGravityY(0);
+      }
     }
   }
 }
