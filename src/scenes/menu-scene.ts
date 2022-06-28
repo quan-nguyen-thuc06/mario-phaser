@@ -24,7 +24,7 @@ export class MenuScene extends Phaser.Scene {
     this.bitmapTexts.push(
       this.add.bitmapText(
         this.sys.canvas.width / 2 - 88,
-        this.scale.height - 105,
+        this.scale.height - 90,
         'font',
         'START',
         32

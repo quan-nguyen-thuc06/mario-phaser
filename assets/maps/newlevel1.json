@@ -33,7 +33,7 @@
          "name":"backgroundLayer",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":300,
          "x":0,
          "y":0
@@ -105,7 +105,7 @@
          "name":"checkLayer",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":300,
          "x":0,
          "y":0
@@ -934,6 +934,39 @@
                  "width":25.3333,
                  "x":4251.33335,
                  "y":304.000016666667
+                }, 
+                {
+                 "height":16,
+                 "id":76,
+                 "name":"goomba",
+                 "rotation":0,
+                 "type":"goomba",
+                 "visible":true,
+                 "width":16,
+                 "x":1447,
+                 "y":346.75
+                }, 
+                {
+                 "height":16,
+                 "id":77,
+                 "name":"goomba",
+                 "rotation":0,
+                 "type":"goomba",
+                 "visible":true,
+                 "width":16,
+                 "x":1471,
+                 "y":346.25
+                }, 
+                {
+                 "height":16,
+                 "id":78,
+                 "name":"turtle",
+                 "rotation":0,
+                 "type":"turtle",
+                 "visible":true,
+                 "width":16,
+                 "x":1457.5,
+                 "y":281.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -942,7 +975,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":76,
+ "nextobjectid":79,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.6",
