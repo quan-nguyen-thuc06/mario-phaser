@@ -904,7 +904,7 @@
                         {
                          "name":"isThrowHammer",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"bowser",
@@ -967,33 +967,6 @@
                  "width":16,
                  "x":1457.5,
                  "y":281.5
-                }, 
-                {
-                 "height":29.3333,
-                 "id":79,
-                 "name":"newLevel2",
-                 "properties":[
-                        {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"right"
-                        }, 
-                        {
-                         "name":"marioSpawnX",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"marioSpawnY",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"portal",
-                 "visible":true,
-                 "width":16,
-                 "x":95.030303030303,
-                 "y":330.787895454545
                 }],
          "opacity":1,
          "type":"objectgroup",
