@@ -48,7 +48,7 @@ export class Bowser extends Enemy {
     this.hammers = this.scene.add.group({
       /*classType: Bullet,*/
       active: true,
-      maxSize: 2,
+      maxSize: 3,
       runChildUpdate: true
     });
     this.speedHammer = 0;

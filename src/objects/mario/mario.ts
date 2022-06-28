@@ -225,7 +225,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
     this.currentScene.add.tween({
       targets: this,
       props: { y: this.y - 12},
-      duration: 300,
+      duration: 250,
       ease: 'Power1',
       yoyo: true
     });
