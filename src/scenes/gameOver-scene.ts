@@ -1,10 +1,12 @@
+import SceneKeys from "../Consts/scene-key";
+
 export class GameOverScene extends Phaser.Scene {
     private startKey: Phaser.Input.Keyboard.Key;
     private bitmapTexts: Phaser.GameObjects.BitmapText[] = [];
   
     constructor() {
       super({
-        key: 'GameOverScene'
+        key: SceneKeys.GameOverScene
       });
     }
   
@@ -33,8 +35,8 @@ export class GameOverScene extends Phaser.Scene {
   
     update(): void {
       if (this.startKey.isDown) {
-        this.scene.start('MenuScene');
-        this.scene.stop('HUDScene');
+        this.scene.start(SceneKeys.MenuScene);
+        this.scene.stop(SceneKeys.HUDScene);
       }
     }
   }

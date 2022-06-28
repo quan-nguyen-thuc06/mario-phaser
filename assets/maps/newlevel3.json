@@ -482,8 +482,8 @@
                  "type":"player",
                  "visible":true,
                  "width":8,
-                 "x":29.7575757575761,
-                 "y":206.19696969697
+                 "x":2094.09090909091,
+                 "y":210.19696969697
                 }, 
                 {
                  "height":37.3333,
@@ -523,6 +523,39 @@
                  "width":16,
                  "x":891.166666666667,
                  "y":270.833333333333
+                }, 
+                {
+                 "height":10,
+                 "id":40,
+                 "name":"fireFly",
+                 "rotation":0,
+                 "type":"fireFly",
+                 "visible":true,
+                 "width":10,
+                 "x":2055.66666666667,
+                 "y":325.666666666667
+                }, 
+                {
+                 "height":10,
+                 "id":41,
+                 "name":"fireFly",
+                 "rotation":0,
+                 "type":"fireFly",
+                 "visible":true,
+                 "width":10,
+                 "x":2273,
+                 "y":326.333333333333
+                }, 
+                {
+                 "height":10,
+                 "id":42,
+                 "name":"fireFly",
+                 "rotation":0,
+                 "type":"fireFly",
+                 "visible":true,
+                 "width":10,
+                 "x":2368.33333333333,
+                 "y":325
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -531,7 +564,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":39,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.6",

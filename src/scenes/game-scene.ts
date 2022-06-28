@@ -1,4 +1,3 @@
-import LevelKeys from '../Consts/level-key';
 import { Bowser } from '../objects/enemy/bowser';
 import { Box } from '../objects/box';
 import { Brick } from '../objects/brick';
@@ -12,6 +11,8 @@ import { Turtle } from '../objects/enemy/turtle';
 import { Goomba } from '../objects/enemy/goomba';
 import { Hammer } from '../objects/bullet/hammer';
 import { Mario } from '../objects/mario/mario';
+import { FireFly } from '../objects/fireFly';
+import SceneKeys from '../Consts/scene-key';
 
 export class GameScene extends Phaser.Scene {
   // tilemap
@@ -29,10 +30,11 @@ export class GameScene extends Phaser.Scene {
   private platforms: Phaser.GameObjects.Group;
   private player: Mario2;
   private portals: Phaser.GameObjects.Group;
+  private fireFlys: Phaser.GameObjects.Group;
 
   constructor() {
     super({
-      key: 'GameScene'
+      key: SceneKeys.GameScene
     });
   }
 
@@ -102,6 +104,11 @@ export class GameScene extends Phaser.Scene {
       runChildUpdate: true
     });
 
+    this.fireFlys = this.add.group({
+      /*classType: FireFly,*/
+      runChildUpdate: true
+    });
+
     this.loadObjectsFromTilemap();
 
     // *****************************************************************
@@ -113,7 +120,6 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.enemies, this.checkLayer);
     this.physics.add.collider(this.enemies, this.boxes);
     this.physics.add.collider(this.enemies, this.bricks);
-    // this.physics.add.collider(this.player, this.bricks);
 
     this.physics.add.collider(
       this.player,
@@ -135,6 +141,14 @@ export class GameScene extends Phaser.Scene {
       this.player,
       this.enemies,
       this.handlePlayerEnemyOverlap,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.fireFlys,
+      this.handlePlayerFireFlyOverlap,
       null,
       this
     );
@@ -289,6 +303,16 @@ export class GameScene extends Phaser.Scene {
         );
       }
 
+      if (object.type === 'fireFly') {
+        this.fireFlys.add(
+          new FireFly({
+          scene: this,
+          x: object.x,
+          y: object.y,
+          texture: 'fire'
+        }))
+      }
+
       if (object.type === 'collectible') {
         this.collectibles.add(
           new Collectible({
@@ -376,9 +400,20 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  private handlePlayerHammerOverlap(_player: Mario, _hammer: Hammer){
+  /**
+   * Player <-> FireFly Overlap
+   * @param _player [Mario]
+   * @param _fireFly  [FireFly]
+   */
+  private handlePlayerFireFlyOverlap(_player: Mario2, _fireFly: FireFly){
+    if (_player.getVulnerable()) {
+      _player.setMarioSize("small"); 
+      _player.gotHit(); 
+    }
+  }
+
+  private handlePlayerHammerOverlap(_player: Mario2, _hammer: Hammer){
     if (_player.getVulnerable() && !_player.body.touching.down) {
-      console.log('Player portal overlaps', _player.getVulnerable());
       _player.setMarioSize("small");
       _player.gotHit();
     }
@@ -459,7 +494,6 @@ export class GameScene extends Phaser.Scene {
 
   private playerHitBrick(_player: Mario, _brick: Brick): void {
     if (_brick.body.touching.down) {
-      console.log('Player hit bricks', _player.getMarioSize());
       if(_player.getMarioSize()=="big"){
         _brick.superMarioHitBrick();
       }
@@ -470,14 +504,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   private handlePlayerPortalOverlap(_player: Mario, _portal: Portal): void {
-    console.log('Player portal overlaps', _portal.getPortalDestination().dir);
     if (
       (_player.getKeys().get('DOWN').isDown &&
         _portal.getPortalDestination().dir === 'down') ||
       (_player.getKeys().get('RIGHT').isDown &&
         _portal.getPortalDestination().dir === 'right')
     ) {
-      console.log('Player portal overlaps', _portal.name);
       // set new level and new destination for mario
       this.registry.set('level', _portal.name);
       this.registry.set('spawn', {
@@ -486,12 +518,15 @@ export class GameScene extends Phaser.Scene {
         dir: _portal.getPortalDestination().dir
       });
 
+      // set world
+      this.events.emit('worldChanged');
+
       // restart the game scene
       this.scene.restart();
     } else if (_portal.name === 'exit') {
-      this.scene.stop('GameScene');
-      this.scene.pause('HUDScene');
-      this.scene.start('WonScene');
+      this.scene.stop(SceneKeys.GameScene);
+      this.scene.pause(SceneKeys.HUDScene);
+      this.scene.start(SceneKeys.WonScene);
     }
   }
 

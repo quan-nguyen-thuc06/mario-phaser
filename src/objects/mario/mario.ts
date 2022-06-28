@@ -107,14 +107,14 @@ export class Mario extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if (!this.isVulnerable) {
-      if (this.vulnerableCounter > 0) {
-        this.vulnerableCounter -= 1;
-      } else {
-        this.vulnerableCounter = 100;
-        this.isVulnerable = true;
-      }
-    }
+    // if (!this.isVulnerable) {
+    //   if (this.vulnerableCounter > 0) {
+    //     this.vulnerableCounter -= 1;
+    //   } else {
+    //     this.vulnerableCounter = 100;
+    //     this.isVulnerable = true;
+    //   }
+    // }
   }
 
   protected handleInput() {
@@ -233,6 +233,7 @@ export class Mario extends Phaser.GameObjects.Sprite {
 
   public gotHit(): void {
     this.isVulnerable = false;
+    console.log('got hit');
     if (this.marioSize === 'big') {
       this.shrinkMario();
     } else {

@@ -1,3 +1,5 @@
+import SceneKeys from "../Consts/scene-key";
+
 export class MenuScene extends Phaser.Scene {
   private startKey: Phaser.Input.Keyboard.Key;
   private bitmapTexts: Phaser.GameObjects.BitmapText[] = [];
@@ -34,9 +36,9 @@ export class MenuScene extends Phaser.Scene {
 
   update(): void {
     if (this.startKey.isDown) {
-      this.scene.start('HUDScene');
-      this.scene.start('GameScene');
-      this.scene.bringToTop('HUDScene');
+      this.scene.start(SceneKeys.HUDScene);
+      this.scene.start(SceneKeys.GameScene);
+      this.scene.bringToTop(SceneKeys.HUDScene);
     }
   }
 

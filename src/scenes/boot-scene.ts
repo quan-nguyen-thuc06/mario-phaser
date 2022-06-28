@@ -1,3 +1,4 @@
+import SceneKeys from '../Consts/scene-key';
 import { AnimationHelper } from '../helpers/animation-helper';
 
 export class BootScene extends Phaser.Scene {
@@ -10,7 +11,7 @@ export class BootScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: 'BootScene'
+      key: SceneKeys.BootScene
     });
   }
 
@@ -55,7 +56,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   update(): void {
-    this.scene.start('MenuScene');
+    this.scene.start(SceneKeys.MenuScene);
   }
 
   private createLoadingGraphics(): void {

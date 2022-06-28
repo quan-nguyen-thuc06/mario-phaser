@@ -1,10 +1,12 @@
+import SceneKeys from "../Consts/scene-key";
+
 export class HUDScene extends Phaser.Scene {
   private textElements: Map<string, Phaser.GameObjects.BitmapText>;
   private timer: Phaser.Time.TimerEvent;
 
   constructor() {
     super({
-      key: 'HUDScene'
+      key: SceneKeys.HUDScene
     });
   }
 
@@ -19,10 +21,11 @@ export class HUDScene extends Phaser.Scene {
     ]);
 
     // create events
-    const level = this.scene.get('GameScene');
+    const level = this.scene.get(SceneKeys.GameScene);
     level.events.on('coinsChanged', this.updateCoins, this);
     level.events.on('scoreChanged', this.updateScore, this);
     level.events.on('livesChanged', this.updateLives, this);
+    level.events.on('worldChanged', this.updateWorld, this);
 
     // add timer
     this.timer = this.time.addEvent({
@@ -64,5 +67,16 @@ export class HUDScene extends Phaser.Scene {
     this.textElements
       .get('LIVES')
       .setText(`Lives: ${this.registry.get('lives')}`);
+  }
+
+  private updateWorld() {
+    // set world
+    var preWorld = this.registry.get('world').toString();
+    var nextWorld =parseInt(preWorld.split('-')[0]) + '-' + (parseInt(preWorld.split('-')[1]) + 1)
+    this.registry.set('world', nextWorld);
+
+    this.textElements
+      .get('WORLD')
+      .setText(`${this.registry.get('world')}`);
   }
 }
