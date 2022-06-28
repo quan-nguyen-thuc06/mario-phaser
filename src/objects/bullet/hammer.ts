@@ -10,7 +10,7 @@ export class Hammer extends Bullet {
     super.initSprite();
     this.setOrigin(0.5)
     this.body.setSize(16, 16);
-    this.body.setCircle(8)
+    // this.body.setCircle(8);
     this.body.setBounce(1,1);
   }
 

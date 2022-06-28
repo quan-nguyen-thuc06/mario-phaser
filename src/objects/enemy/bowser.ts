@@ -1,6 +1,6 @@
 import { Enemy } from './enemy';
 import { ISpriteConstructor } from '../../interfaces/sprite.interface';
-import { Mario2 } from '../mario2';
+import { Mario2 } from '../mario/mario2';
 import { Hammer } from '../bullet/hammer';
 
 export class Bowser extends Enemy {
@@ -55,7 +55,7 @@ export class Bowser extends Enemy {
   }
 
   private initTimer(){
-    this.scene.time.addEvent({ delay: 1200 ,callback: this.handleShooting, callbackScope: this , loop: true });
+    this.scene.time.addEvent({ delay: 1000 ,callback: this.handleShooting, callbackScope: this , loop: true });
   }
 
   update(): void {
@@ -107,16 +107,8 @@ export class Bowser extends Enemy {
 	}
   public gotHitOnHead(): void {
     this.isDying = true;
-    this.setFrame(2);
+    this.setFrame(9);
     this.showAndAddScore();
-  }
-
-  public gotHitFromBulletOrMarioHasStar(): void {
-    this.isDying = true;
-    this.body.setVelocityX(0);
-    this.body.checkCollision.none = true;
-    this.body.setVelocityY(-20);
-    this.setFlipY(true);
   }
 
 	private followPlayer(){

@@ -5,13 +5,13 @@ import { Brick } from '../objects/brick';
 import { Collectible } from '../objects/collectible';
 import { Enemy } from '../objects/enemy/enemy';
 import { Fire } from '../objects/bullet/fire';
-import { Mario } from '../objects/mario';
-import { Mario2 } from '../objects/mario2';
+import { Mario2 } from '../objects/mario/mario2';
 import { Platform } from '../objects/platform';
 import { Portal } from '../objects/portal';
 import { Turtle } from '../objects/enemy/turtle';
 import { Goomba } from '../objects/enemy/goomba';
 import { Hammer } from '../objects/bullet/hammer';
+import { Mario } from '../objects/mario/mario';
 
 export class GameScene extends Phaser.Scene {
   // tilemap
@@ -352,8 +352,8 @@ export class GameScene extends Phaser.Scene {
       // player hit enemy on top
       _player.bounceUpAfterHitEnemyOnHead();
 
-      if(_enemy instanceof Goomba || _enemy instanceof Turtle){
-        if(_enemy instanceof Goomba || (_enemy instanceof Turtle && _enemy.isDying)){
+      if(_enemy instanceof Goomba || _enemy instanceof Turtle || (_enemy instanceof Bowser && _player.getMarioSize()=='big')){
+        if(!(_enemy instanceof Turtle) || (_enemy instanceof Turtle && _enemy.isDying)){
           this.add.tween({
             targets: _enemy,
             props: { alpha: 0 },
@@ -377,7 +377,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   private handlePlayerHammerOverlap(_player: Mario, _hammer: Hammer){
-    if (_player.getVulnerable()) {
+    if (_player.getVulnerable() && !_player.body.touching.down) {
+      console.log('Player portal overlaps', _player.getVulnerable());
       _player.setMarioSize("small");
       _player.gotHit();
     }
@@ -410,7 +411,7 @@ export class GameScene extends Phaser.Scene {
    * @param _player [Mario]
    * @param _box    [Box]
    */
-  private playerHitBox(_player: Mario, _box: Box): void {
+  private playerHitBox(_player: Mario2, _box: Box): void {
     if (_box.body.touching.down && _box.active) {
       // ok, mario has really hit a box on the downside
       _box.yoyoTheBoxUpAndDown();
@@ -435,10 +436,9 @@ export class GameScene extends Phaser.Scene {
           break;
         }
         case 'flower': {
-          _box.tweenBoxContent({ y: _box.y - 8 }, 200, function () {
+          _box.tweenBoxContent({ y: _box.y - 18 }, 200, function () {
             _box.getContent().anims.play('flower');
           });
-
           break;
         }
         case 'mushroom': {
@@ -490,17 +490,18 @@ export class GameScene extends Phaser.Scene {
       this.scene.restart();
     } else if (_portal.name === 'exit') {
       this.scene.stop('GameScene');
-      this.scene.stop('HUDScene');
-      this.scene.start('MenuScene');
+      this.scene.pause('HUDScene');
+      this.scene.start('WonScene');
     }
   }
 
   private handlePlayerCollectiblesOverlap(
-    _player: Mario,
+    _player: Mario2,
     _collectible: Collectible
   ): void {
     switch (_collectible.texture.key) {
       case 'flower': {
+        _player.setIsFireMan(true);
         break;
       }
       case 'mushroom': {

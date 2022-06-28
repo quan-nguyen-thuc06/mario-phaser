@@ -42,7 +42,7 @@ export class MenuScene extends Phaser.Scene {
 
   private initGlobalDataManager(): void {
     this.registry.set('time', 400);
-    this.registry.set('level', 'newLevel2');
+    this.registry.set('level', 'newLevel1');
     this.registry.set('world', '1-1');
     this.registry.set('worldTime', 'WORLD TIME');
     this.registry.set('score', 0);

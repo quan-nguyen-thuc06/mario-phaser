@@ -361,7 +361,7 @@
                 {
                  "height":29.3333333333333,
                  "id":31,
-                 "name":"newLevel2",
+                 "name":"newLevel3",
                  "properties":[
                         {
                          "name":"direction",
@@ -724,8 +724,25 @@
                  "type":"bowser",
                  "visible":true,
                  "width":25.3333,
-                 "x":462.666683333333,
-                 "y":185.33335
+                 "x":443.33335,
+                 "y":184.000016666667
+                }, 
+                {
+                 "height":16,
+                 "id":66,
+                 "name":"box",
+                 "properties":[
+                        {
+                         "name":"content",
+                         "type":"string",
+                         "value":"mushroom"
+                        }],
+                 "rotation":0,
+                 "type":"box",
+                 "visible":true,
+                 "width":16,
+                 "x":138,
+                 "y":222
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -734,7 +751,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":66,
+ "nextobjectid":67,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.6",

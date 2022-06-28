@@ -155,7 +155,17 @@
       {
         "type": "image",
         "key": "title",
-        "url": "./assets/images/title.png"
+        "url": "./assets/images/start-image.png"
+      },
+      {
+        "type": "image",
+        "key": "princess",
+        "url": "./assets/images/princess-peach.png"
+      },
+      {
+        "type": "image",
+        "key": "gameOver",
+        "url": "./assets/images/game-over.png"
       },
       {
         "type": "spritesheet",
@@ -171,8 +181,8 @@
         "key": "flower",
         "url": "./assets/collectibles/flower.png",
         "frameConfig": {
-          "frameWidth": 8,
-          "frameHeight": 8
+          "frameWidth": 18,
+          "frameHeight": 18
         }
       },
       {
