@@ -22,8 +22,8 @@
  * [4] [Generic Platformer and Phaser Bootstrap Project](https://github.com/nkholski/phaser3-es6-webpack)
  */
 
-import 'phaser';
-import { GameConfig } from './config';
+import "phaser";
+import { GameConfig } from "./config";
 
 export class Game extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
@@ -31,6 +31,13 @@ export class Game extends Phaser.Game {
   }
 }
 
-window.addEventListener('load', () => {
-  const game = new Game(GameConfig);
+window.addEventListener("load", () => {
+  //@ts-ignore
+  YaGames.init().then((ysdk) => {
+    console.log("Yandex SDK initialized");
+    //@ts-ignore
+
+    window.ysdk = ysdk;
+    const game = new Game(GameConfig);
+  });
 });
